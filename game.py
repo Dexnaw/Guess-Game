@@ -29,7 +29,7 @@ def menu():
         playerIsIA()
     elif choix == "3":
         clearThisShit()
-        print(Color.YELLOW + 'MERCI D\'AVOIR JOUÉ')
+        print(Color.YELLOW + 'MERCI D\'AVOIR JOUÉ' + Color.END)
         time.sleep(2)
         clearThisShit()
         sys.exit()
@@ -40,7 +40,7 @@ def menu():
         menu()
 
 def menuReplay(x):
-    choix = input('Voulez vous rejouer (1) ou retourner au menu (2)? \n> ')
+    choix = input('\nVoulez vous rejouer (1) ou retourner au menu (2)? \n> ')
     if choix == "1":
         if x == 0:
             playerIsUser()
@@ -60,7 +60,7 @@ def userPlay():
 def playerIsUser():
     #rand = random.randint(1,100)
     clearThisShit()
-    rand = 50
+    rand = random.randint(1,100)
     user_input = userPlay()
     coup = 0
     x = 0
