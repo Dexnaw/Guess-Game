@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import random, time, os, sys
-# import time
-# import os
-# import sys
 from Color import *
 
 #fonction pour "nettoyer" le terminal
@@ -14,7 +11,6 @@ def clearThisShit():
 def menu():
     clearThisShit()
     hashtag = '###########################'
-    tabulation = 80
     print(hashtag, end='\n')
     print('Bienvenue sur "GuessGame" !', end='\n')
     print(hashtag, end='\n')
@@ -25,6 +21,7 @@ def menu():
     choix = input('\nVotre choix (1-2-3) :\n> ')
 
     if choix == '1':
+        clearThisShit()
         playerIsUser()
     elif choix == '2' :
         clearThisShit()
@@ -40,6 +37,7 @@ def menu():
         print('Tu te crois malin...')
         time.sleep(2)
         menu()
+        
 # Menu "voulez vous rejouer"
 def menuReplay(x):
     choix = input('\nVoulez vous rejouer (1) ou retourner au menu (2)? \n> ')
@@ -61,7 +59,6 @@ def userPlay():
 
 #lance le mode où le joueur doit deviner le nombre que l'IA à "imaginé"
 def playerIsUser():
-    clearThisShit()
     rand = random.randint(1,100)
     user_input = userPlay()
     coup = 0
@@ -89,8 +86,8 @@ def playerIsUser():
 
         user_input = userPlay()
 
-def iaPlay() :
-    return input('Quel sera le nombre que l\'IA devra deviner ? \n> ')
+def iaPlay(name) :
+    return input('Quel sera le nombre que %s devra deviner ? \n> ' %name)
 
 #Lance le mode où l'IA doit deviner le nombre entré par le joueur
 def playerIsIA():
@@ -101,7 +98,8 @@ def playerIsIA():
     userNbr = 1
     iaNbr = 0
     clearThisShit()
-    user_input = iaPlay()
+    name = input('Donnez un nom à l\'IA > ')
+    user_input = iaPlay(name)
 
     while  iaNbr != userNbr:
         try :
@@ -112,20 +110,21 @@ def playerIsIA():
             print("J'ai demandé un" + Color.BOLD + " NOMBRE ENTRE 1 ET 100" + Color.END)
             user_input = iaPlay()
         else :
+            # startTime = time.time()
             iaNbr = random.randint(min,max)
             coup = coup + 1
             time.sleep(1)
             if iaNbr > userNbr:
-                print('IA propose : %d' %iaNbr )
-                print('C\'est plus PETIT')
+                print('%s propose : %d' %(name,iaNbr) + Color.BLUE +'\t -> C\'est plus PETIT' + Color.END)
+                # print('C\'est plus PETIT')
                 max = iaNbr-1
             elif iaNbr < userNbr:
-                print('IA propose : %d' %iaNbr )
-                print('C\'est plus GRAND')
+                print('%s propose : %d' %(name,iaNbr) + Color.RED+'\t -> C\'est plus GRAND' + Color.END)
                 min = iaNbr+1
             else :
-                print('IA propose : %d' %iaNbr)
-                print('IA à trouvé en %d coups'  %coup)
+                # print("en %f seconds" %(time.time() - startTime))
+                print('%s propose : %d' %(name,iaNbr) + Color.GREEN + '\t -> FELICITATION %s !'  %name + Color.END)
+                print('%s a trouvé en %d coups'  %(name,coup))
                 menuReplay(x)
 
 if __name__ == '__main__':
