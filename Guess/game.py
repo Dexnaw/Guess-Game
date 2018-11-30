@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import random
-import time
-import os
-import sys
+import random, time, os, sys
+# import time
+# import os
+# import sys
 from Color import *
 
 #fonction pour "nettoyer" le terminal
@@ -128,7 +128,5 @@ def playerIsIA():
                 print('IA à trouvé en %d coups'  %coup)
                 menuReplay(x)
 
-menu()
-
-#TODO Vérifier si l'input de l'user est un nombre !
-#Il existe un moyen de définir le type en python type(input)
+if __name__ == '__main__':
+    menu()
