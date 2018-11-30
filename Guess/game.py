@@ -6,9 +6,11 @@ import os
 import sys
 from Color import *
 
+#fonction pour "nettoyer" le terminal
 def clearThisShit():
     os.system('clear')
 
+#Menu principal
 def menu():
     clearThisShit()
     hashtag = '###########################'
@@ -38,7 +40,7 @@ def menu():
         print('Tu te crois malin...')
         time.sleep(2)
         menu()
-
+# Menu "voulez vous rejouer"
 def menuReplay(x):
     choix = input('\nVoulez vous rejouer (1) ou retourner au menu (2)? \n> ')
     if choix == "1":
@@ -57,8 +59,8 @@ def menuReplay(x):
 def userPlay():
     return input('Devine le nombre (entre 1 et 100)\n> ')
 
+#lance le mode où le joueur doit deviner le nombre que l'IA à "imaginé"
 def playerIsUser():
-    #rand = random.randint(1,100)
     clearThisShit()
     rand = random.randint(1,100)
     user_input = userPlay()
@@ -90,7 +92,7 @@ def playerIsUser():
 def iaPlay() :
     return input('Quel sera le nombre que l\'IA devra deviner ? \n> ')
 
-
+#Lance le mode où l'IA doit deviner le nombre entré par le joueur
 def playerIsIA():
     x = 1
     min = 1
