@@ -39,10 +39,13 @@ def menu():
         time.sleep(2)
         menu()
 
-def menuReplay():
+def menuReplay(x):
     choix = input('Voulez vous rejouer (1) ou retourner au menu (2)? \n> ')
     if choix == "1":
-        playerIsUser()
+        if x == 0:
+            playerIsUser()
+        else :
+            playerIsIA()
     elif choix == "2":
         menu()
     else :
@@ -60,6 +63,7 @@ def playerIsUser():
     rand = 50
     user_input = userPlay()
     coup = 0
+    x = 0
 
     while rand != user_input:
         coup = coup + 1
@@ -79,31 +83,49 @@ def playerIsUser():
                 print("C'est plus grand que %s" %user_input)
             else :
                 print("BRAVO, REUSSI EN %d coup(s)\n" %coup)
-                menuReplay()
+                menuReplay(x)
 
         user_input = userPlay()
 
+def iaPlay() :
+    return input('Quel sera le nombre que l\'IA devra deviner ? \n> ')
+
+
 def playerIsIA():
+    x = 1
     min = 1
     max = 100
-    coup = 0;
-    value = 0
-    user_input = input('Quel sera le nombre que l\'IA devra deviner ? \n> ')
+    coup = 0
+    userNbr = 1
+    iaNbr = 0
+    clearThisShit()
+    user_input = iaPlay()
 
-    while  value!= user_input:
+    while  iaNbr != userNbr:
         try :
-            value = int(user_input)
+            userNbr = int(user_input)
+            if userNbr>100 or userNbr<1:
+                raise ValueError
         except ValueError:
-            print("Veuillez entrer un nombre !")
+            print("J'ai demandé un" + Color.BOLD + " NOMBRE ENTRE 1 ET 100" + Color.END)
+            user_input = iaPlay()
         else :
-            rand = random.randint(min,max)
+            iaNbr = random.randint(min,max)
             coup = coup + 1
-            if rand > value:
-                max = rand
-            elif rand < value:
-                min = rand
+            time.sleep(1)
+            if iaNbr > userNbr:
+                print('IA propose : %d' %iaNbr )
+                print('C\'est plus PETIT')
+                max = iaNbr-1
+            elif iaNbr < userNbr:
+                print('IA propose : %d' %iaNbr )
+                print('C\'est plus GRAND')
+                min = iaNbr+1
             else :
-                print('IA en %d' %coup)
+                print('IA propose : %d' %iaNbr)
+                print('IA à trouvé en %d coups'  %coup)
+                menuReplay(x)
+
 menu()
 
 #TODO Vérifier si l'input de l'user est un nombre !
